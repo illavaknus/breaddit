@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TimeStamp extends Component {
+class Timestamp extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -13,4 +13,4 @@ class TimeStamp extends Component {
     }
 }
 
-export default TimeStamp;
+export default Timestamp;
