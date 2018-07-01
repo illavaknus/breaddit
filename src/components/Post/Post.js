@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import Timestamp from '../Timestamp/Timestamp';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import SvgIcon from '@material-ui/core/SvgIcon';
 
 class Post extends Component {
     constructor(props){
@@ -15,7 +11,6 @@ class Post extends Component {
     }
 
     render(){
-        // console.log(this.state.post.data);
         return (
             <a href={this.props.post.data.url} style={{textDecoration: 'none'}} target="_blank">
                 <Paper style={{display:'flex', margin:'5px'}}>        
@@ -33,7 +28,6 @@ class Post extends Component {
                                 <img style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
                             </div>
                         </Grid>}
-                        
                     </Grid>
                 </Paper>
             </a>
