@@ -17,24 +17,26 @@ class Post extends Component {
     render(){
         // console.log(this.state.post.data);
         return (
-            <Paper style={{display:'flex', margin:'5px'}}>
-                <Grid container wrap="nowrap" alignItems={'center'}>
-                    <Grid item xs zeroMinWidth style={{padding:'15px'}}>
-                        <div>
-                            <Typography variant='subheading' align='left' noWrap>{this.props.post.data.title}</Typography>
-                            <Typography variant='caption' align='left'>/r/{this.props.post.data.subreddit} posted by {this.state.post.data.author} <Timestamp time={this.state.post.data.created}/></Typography>
-                        </div>
+            <a href={this.props.post.data.url} style={{textDecoration: 'none'}} target="_blank">
+                <Paper style={{display:'flex', margin:'5px'}}>        
+                    <Grid container wrap="nowrap" alignItems={'center'}>
+                        <Grid item xs zeroMinWidth style={{padding:'15px'}}>
+                            <div>
+                                <Typography variant='subheading' align='left' noWrap>{this.props.post.data.title}</Typography>
+                                <Typography variant='caption' align='left'>/r/{this.props.post.data.subreddit} posted by {this.state.post.data.author} <Timestamp time={this.state.post.data.created}/></Typography>
+                            </div>
+                        </Grid>
+                        {this.props.post.data.thumbnail === "default" || this.props.post.data.thumbnail === "self" ? 
+                        null :
+                        <Grid item style={{paddingTop:'5px', paddingRight:'5px'}}>
+                            <div>
+                                <img style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
+                            </div>
+                        </Grid>}
+                        
                     </Grid>
-                    {this.props.post.data.thumbnail !== "default" ? 
-                    <Grid item style={{paddingTop:'5px', paddingRight:'5px'}}>
-                        <div>
-                            <img style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
-                        </div>
-                    </Grid> 
-                    : null}
-                    
-                </Grid>
-            </Paper>
+                </Paper>
+            </a>
         )
     }
 }
