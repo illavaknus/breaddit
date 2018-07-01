@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Timestamp extends Component {
     _inTime(date){
-        return 'on ' + date.toString();
+        return 'on ' + date.toLocaleString();
     }
 
     _inWords(date){
@@ -28,7 +28,7 @@ class Timestamp extends Component {
         d.setUTCHours(t[3]);
         d.setUTCMinutes(t[4]);
         d.setUTCSeconds(t[5]);
-        console.log(t,d);
+        
         return d;
     }
 
