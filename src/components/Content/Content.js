@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Post from '../Post/Post';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 class Content extends Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class Content extends Component {
     }
 
     componentDidMount() {
-        console.log("component mounted" + this.state.isLoaded);
         axios.get('https://www.reddit.com/best.json?sort=new')
             .then(res => res.data.data.children)
             .then(res => {
@@ -29,7 +28,7 @@ class Content extends Component {
     }
 
     render() {
-        return ( <Grid container spacing={24}> {this.state.isLoaded ? Object.keys(this.state.posts).map((index) => < Post post = {this.state.posts[index]} key = {index} />) : <span>Loading...</span >} </Grid> );
+        return ( <Paper container spacing={24}> {this.state.isLoaded ? Object.keys(this.state.posts).map((index) => < Post post = {this.state.posts[index]} key = {index} />) : <span>Loading...</span >} </Paper> );
         }
     }
 

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import Score from '../Score/Score';
-import Thumbnail from '../Thumbnail/Thumbnail';
-import Author from '../Author/Author';
-import Grid from '@material-ui/core/Grid';
+import Timestamp from '../Timestamp/Timestamp';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 class Post extends Component {
     constructor(props){
@@ -12,37 +15,28 @@ class Post extends Component {
     }
 
     render(){
-        console.log(this.state.post.data);
+        // console.log(this.state.post.data);
         return (
-            <Grid container xs={12} direction='row' alignItems='center' justify='center'>
-                {/* <Paper> */}
-                <Grid item xs={1}>
-                    <Score score={this.state.post.data.ups}/>
-                </Grid>
-                <Grid item xs={3}>
-                    <Thumbnail src={this.state.post.data.thumbnail}/>
-                </Grid>
-                <Grid item xs={8}>
-                    <Grid container direction='column' justify='flex-start' alignItems='flex-start'>
-                        <Grid item xs={12}>
-                            <div className="title">{this.state.post.data.title}</div>
+            <a href={this.props.post.data.url} style={{textDecoration: 'none'}} target="_blank">
+                <Paper style={{display:'flex', margin:'5px'}}>        
+                    <Grid container wrap="nowrap" alignItems={'center'}>
+                        <Grid item xs zeroMinWidth style={{padding:'15px'}}>
+                            <div>
+                                <Typography variant='subheading' align='left' noWrap>{this.props.post.data.title}</Typography>
+                                <Typography variant='caption' align='left'>/r/{this.props.post.data.subreddit} posted by {this.state.post.data.author} <Timestamp time={this.state.post.data.created}/></Typography>
+                            </div>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Grid container direction='row' alignItems='center' justify='flex-start'>
-                                <Grid item xs={3}>
-                                    <div className="subreddit">/r/{this.state.post.data.subreddit}</div>
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <Author author={this.state.post.data.author} created={this.state.post.data.created_utc}/>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <div className="comments">{this.state.post.data.num_comments} comments</div>
-                        </Grid>
+                        {this.props.post.data.thumbnail === "default" || this.props.post.data.thumbnail === "self" ? 
+                        null :
+                        <Grid item style={{paddingTop:'5px', paddingRight:'5px'}}>
+                            <div>
+                                <img style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
+                            </div>
+                        </Grid>}
+                        
                     </Grid>
-                </Grid>
-            </Grid>
+                </Paper>
+            </a>
         )
     }
 }
