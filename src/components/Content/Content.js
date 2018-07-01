@@ -14,7 +14,6 @@ class Content extends Component {
     }
 
     componentDidMount() {
-        console.log("component mounted" + this.state.isLoaded);
         axios.get('https://www.reddit.com/best.json?sort=new')
             .then(res => res.data.data.children)
             .then(res => {
