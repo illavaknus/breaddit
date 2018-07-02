@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Timestamp from '../Timestamp/Timestamp';
+import Timestamp from 'react-timestamp';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -17,8 +17,9 @@ class Post extends Component {
                     <Grid container wrap="nowrap" alignItems={'center'}>
                         <Grid item xs zeroMinWidth style={{padding:'15px'}}>
                             <div>
+                                <Typography variant='caption' align='left'>r/{this.props.post.data.subreddit} by u/{this.state.post.data.author}</Typography>
                                 <Typography variant='subheading' align='left' noWrap>{this.props.post.data.title}</Typography>
-                                <Typography variant='caption' align='left'>/r/{this.props.post.data.subreddit} posted by {this.state.post.data.author} <Timestamp time={this.state.post.data.created}/></Typography>
+                                <Typography variant='caption' align='left'><Timestamp time={this.state.post.data.created} precision={2} utc={false}/></Typography>
                             </div>
                         </Grid>
                         {this.props.post.data.thumbnail === "default" || this.props.post.data.thumbnail === "self" ? 

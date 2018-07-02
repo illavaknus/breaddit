@@ -8,6 +8,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
+    "react-timestamp": "^4.4.0",
     "typeface-roboto": "0.0.54"
   },
   "scripts": {
