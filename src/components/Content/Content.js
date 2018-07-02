@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Post from '../Post/Post';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Content extends Component {
     constructor(props) {
@@ -28,7 +29,14 @@ class Content extends Component {
     }
 
     render() {
-        return ( <Paper container spacing={24}> {this.state.isLoaded ? Object.keys(this.state.posts).map((index) => < Post post = {this.state.posts[index]} key = {index} />) : <span>Loading...</span >} </Paper> );
+        return (
+            <div textAlign={'center'}>
+                { this.state.isLoaded ?  
+                    <Paper container spacing={24}>
+                        {Object.keys(this.state.posts).map(index => <Post post = {this.state.posts[index]} key = {index} />)}
+                    </Paper> 
+                : <LinearProgress/>}
+            </div>);
         }
     }
 
