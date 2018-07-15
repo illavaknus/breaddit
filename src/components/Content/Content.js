@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import Post from '../Post/Post';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import InfiniteScroll from 'react-infinite-scroller';
 
 class Content extends Component {
     constructor(props) {
@@ -10,17 +13,26 @@ class Content extends Component {
         this.state = {
             error: null,
             isLoaded: false,
-            posts: []
+            posts: [],
+            after: null,
+            before: null,  // not useful since we have retrievalCount
+            retrievalCount: 5,
+            hasMorePosts: true
         };
     }
 
-    componentDidMount() {
-        axios.get('https://www.reddit.com/best.json?sort=new')
-            .then(res => res.data.data.children)
+    _retrievePosts() {
+        axios.get('https://www.reddit.com/.json?limit='+this.state.retrievalCount+'&after='+this.state.after)
             .then(res => {
+                let posts = this.state.posts;
+                res.data.data.children.map(post => {
+                    posts.push(post);
+                    return null;
+                })
                 this.setState({
-                    posts: res,
-                    isLoaded: true
+                    isLoaded: true,
+                    after: res.data.after,
+                    before: res.data.before
                 });
             })
             .catch((error) => {
@@ -28,15 +40,36 @@ class Content extends Component {
             });
     }
 
+    componentDidMount() {
+        this._retrievePosts();
+    }
+
     render() {
+    const loader = 
+        (<Grid container justify="center" style={{padding:'5px'}}>
+            <Grid item xs={1}>
+                <CircularProgress/>
+            </Grid>
+        </Grid>);
+
         return (
-            <div textAlign={'center'}>
-                { this.state.isLoaded ?  
-                    <Paper container spacing={24}>
-                        {Object.keys(this.state.posts).map(index => <Post post = {this.state.posts[index]} key = {index} />)}
-                    </Paper> 
-                : <LinearProgress/>}
-            </div>);
+            <div>
+                {
+                    this.state.isLoaded ?  
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={this._retrievePosts.bind(this)}
+                        hasMore={this.state.hasMorePosts}
+                        loader={loader}>
+
+                        <Paper container spacing={24}>
+                            {Object.keys(this.state.posts).map(index => <Post post = {this.state.posts[index]} key = {index} />)}
+                        </Paper> 
+                    </InfiniteScroll>
+                    : <LinearProgress/>
+                }
+            </div>
+        );
         }
     }
 

@@ -26,7 +26,7 @@ class Post extends Component {
                         null :
                         <Grid item style={{paddingTop:'5px', paddingRight:'5px'}}>
                             <div>
-                                <img style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
+                                <img alt={"post thumbnail"} style={{maxheight:100, maxWidth:100, border: '1px solid #ddd', borderRadius: '4px'}} src={this.props.post.data.thumbnail}/>
                             </div>
                         </Grid>}
                     </Grid>
