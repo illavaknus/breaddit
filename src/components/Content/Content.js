@@ -16,7 +16,7 @@ class Content extends Component {
             posts: [],
             after: null,
             before: null,  // not useful since we have retrievalCount
-            retrievalCount: 5,
+            retrievalCount: 10,
             hasMorePosts: true
         };
     }
@@ -31,8 +31,8 @@ class Content extends Component {
                 })
                 this.setState({
                     isLoaded: true,
-                    after: res.data.after,
-                    before: res.data.before
+                    after: res.data.data.after,
+                    before: res.data.data.before
                 });
             })
             .catch((error) => {
